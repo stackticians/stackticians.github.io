@@ -2,7 +2,7 @@
 layout: single
 title: "NFT Gaming"
 header:
-  teaser: assets/images/crypto_live.jpeg
+  teaser: "assets/images/crypto_live.jpeg"
 excerpt: "NFT Gaming"
 ---
 Imagine building a character in GrandTheft Auto.  Building their endurance, speed and just making them entirely unique.  Getting special weapons or vehicles within the game and then selling them on the NFT marketplace.

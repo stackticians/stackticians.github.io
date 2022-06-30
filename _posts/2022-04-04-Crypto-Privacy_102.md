@@ -2,7 +2,7 @@
 layout: single
 title: "Privacy 102"
 header:
-  teaser: assets/images/chainalysis.jpg
+  teaser: "assets/images/chainalysis.jpg"
 excerpt: "Privacy 102"
 ---
 

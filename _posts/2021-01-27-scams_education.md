@@ -2,7 +2,7 @@
 layout: single
 title: "Scams, Rugpulls and Education"
 header:
-  teaser: assets/images/crypto_live.jpeg
+  teaser: "assets/images/crypto_live.jpeg"
 excerpt: "Scams, Rugpulls and Education"
 ---
 

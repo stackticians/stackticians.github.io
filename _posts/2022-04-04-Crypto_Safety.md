@@ -2,7 +2,7 @@
 layout: single
 title: "Crypto Safety"
 header:
-  teaser: assets/images/crypto_live.jpeg
+  teaser: "assets/images/crypto_live.jpeg"
 excerpt: "Crypto Safety"
 ---
 
