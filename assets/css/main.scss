@@ -1,0 +1,545 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@charset "utf-8";
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
+@import "minimal-mistakes"; // main partials
+
+/* Theme overrides */
+/* ==========================================================================
+   ARCHIVE
+   ========================================================================== */
+
+.archive__item-title {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+  font-family: $sans-serif-narrow;
+  line-height: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  a + a {
+    opacity: 0.5;
+  }
+}
+
+.archive__item-excerpt {
+  margin-top: 0;
+  margin-bottom: 3em;
+  font-size: $type-size-6;
+
+  & + p {
+    text-indent: 0;
+  }
+}
+
+.notice--fxck-2019 {
+  @include notice(#FF2D5C);
+  font-size: 1.0em !important;
+}
+
+.notice--fxck-2020 {
+  @include notice(#3e4095);
+  font-size: 1.0em !important;
+}
+
+.notice--fxck-2021 {
+  @include notice(#D95620);
+  font-size: 1.0em !important;
+}
+
+.notice--fxck-2022 {
+  @include notice(#E897D2);
+  font-size: 1.0em !important;
+}
+
+/* ==========================================================================
+   Media and embeds
+   ========================================================================== */
+
+/* Figures and images */
+
+iframe {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+figure {
+  margin: 0 0;
+}
+
+.align-text-center {
+  text-align: -webkit-center;
+}
+
+.fourth {
+  > a,
+  > img {
+    @include breakpoint($small) {
+      width: calc(25% - 0.5em);
+    }
+  }
+
+  figcaption {
+    width: 100%;
+  }
+}
+
+.fifth {
+  > a,
+  > img {
+    @include breakpoint($small) {
+      width: calc(20% - 0.5em);
+    }
+  }
+
+  figcaption {
+    width: 100%;
+  }
+}
+
+.sixth {
+  > a,
+  > img {
+    @include breakpoint($small) {
+      width: calc(16.666% - 0.5em);
+    }
+  }
+
+  figcaption {
+    width: 100%;
+  }
+}
+
+
+#IG_top {
+  display: none;
+
+  @include breakpoint($small) {
+    display: block;
+  }
+}
+
+#IG_bottom {
+  display: block;
+
+  @include breakpoint($small) {
+    display: none;
+  }
+}
+
+
+/* ==========================================================================
+   ROUND CORNERS
+   ========================================================================== */
+
+// .rounded(VALUE);
+@mixin rounded($radius:4px) {
+  -webkit-border-radius : $radius;
+  -moz-border-radius : $radius;
+  border-radius : $radius;
+}
+
+// .border-radius(VALUE,VALUE,VALUE,VALUE);
+@mixin border-radius($topright: 0, $bottomright: 0, $bottomleft: 0, $topleft: 0) {
+  -webkit-border-top-right-radius : $topright;
+  -webkit-border-bottom-right-radius : $bottomright;
+  -webkit-border-bottom-left-radius : $bottomleft;
+  -webkit-border-top-left-radius : $topleft;
+  -moz-border-radius-topright : $topright;
+  -moz-border-radius-bottomright : $bottomright;
+  -moz-border-radius-bottomleft : $bottomleft;
+  -moz-border-radius-topleft : $topleft;
+  border-top-right-radius : $topright;
+  border-bottom-right-radius : $bottomright;
+  border-bottom-left-radius : $bottomleft;
+  border-top-left-radius : $topleft;
+  -webkit-background-clip : padding-box;
+  -moz-background-clip : padding;
+  background-clip : padding-box;
+}
+
+
+/* ==========================================================================
+   Tag Inline List
+   ========================================================================== */
+
+.inline-list {
+  list-style: none;
+  font-size: 50%;
+  margin-left: 0;
+  padding-left: 0;
+  li {
+    list-style-type: none;
+    display: inline;
+  }
+}
+
+.entry-meta {
+  text-transform: uppercase;
+  color: lighten($text-color,60);
+  a {
+    color: lighten($text-color,60);
+  }
+  .vcard {
+    &:before {
+      content: " by ";
+    }
+  }
+  .tag {
+    display: inline-block;
+    margin: 4px;
+    color: #494e52;
+    @include rounded(3px);
+    background-color: lighten($primary-color,50);
+      span {
+        float: left;
+        padding: 2px 6px;
+      }
+      .count {
+          background-color: lighten($primary-color,40);
+          @include border-radius(3px,3px,0,0);
+      }
+      &:hover {
+          background-color: lighten($primary-color,40);
+      }
+  }
+  .entry-reading-time {
+    float: right;
+  }
+}
+
+
+.page__hero {
+  position: relative;
+  margin-bottom: 2em;
+  @include clearfix;
+  -webkit-animation: $intro-transition;
+  animation: $intro-transition;
+  -webkit-animation-delay: 0.25s;
+  animation-delay: 0.25s;
+
+  &--overlay {
+    position: relative;
+    min-height: 384px;
+    margin-bottom: 2em;
+    padding: 3em 0;
+    @include clearfix;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-animation: $intro-transition;
+    animation: $intro-transition;
+    -webkit-animation-delay: 0.25s;
+    animation-delay: 0.25s;
+
+    a {
+      color: #fff;
+    }
+
+    .wrapper {
+      padding-left: 1em;
+      padding-right: 1em;
+      padding-top: 3em;
+
+      @include breakpoint($x-large) {
+        max-width: $x-large;
+      }
+    }
+
+    .page__title,
+    .page__meta,
+    .page__lead,
+    .btn {
+      color: #fff;
+      text-shadow: 1px 1px 4px rgba(#000, 0.5);
+    }
+
+    .page__lead {
+      max-width: $medium;
+    }
+
+    .page__date {
+      color: #fff;
+      text-align: center;
+    }
+
+    .page__title {
+      font-size: $type-size-2;
+      text-align: center;
+
+      @include breakpoint($small) {
+        font-size: $type-size-1;
+      }
+    }
+  }
+}
+
+
+/* ==========================================================================
+   Comments
+   ========================================================================== */
+
+#comment-form-reply {
+  display: inline;
+}
+
+.comment {
+  @include clearfix();
+  margin: 1em 0;
+  position: relative;
+  margin-top: 4em;
+  margin-bottom: 4em;
+  font-size: 0.9em;
+
+  &:not(:last-child) {
+    border-bottom: 0px solid $border-color;
+  }
+
+  // comment replies
+  &.child {
+    margin-left: 4.5em;
+
+    &:before,
+    &:after {
+      position: absolute;
+      margin-top: 1.2em;
+      left: 27px;
+      content: '';
+      width: 0.5em;
+      background-color: #e3e3e3;
+    }
+
+    &:before {
+      top: -3em;
+      height: 1.8em;
+    }
+
+    &:after {
+      top: 4em;
+      bottom: -1em;
+    }
+  }
+}
+
+.comment__avatar-wrapper {
+  float: left;
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+
+//  @include breakpoint($large) {
+//    width: 100px;
+//    height: 100px;
+//  }
+
+}
+
+.comment__avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
+//  @include breakpoint($large) {
+//    width: 80px;
+//    height: 80px;
+//    padding: 5px;
+//    border: 1px solid $border-color;
+//  }
+
+}
+
+.comment__message {
+  margin: 0;
+  margin-left: 80px;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.comment__reply {
+  margin: 0;
+  margin-left: 80px;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.comment__content-wrapper {
+    /* float:right; */
+  width: calc(100% - 80px);
+
+  @include breakpoint($large) {
+    width: calc(100% - 120px);
+  }
+}
+
+#respond {
+  @include clearfix;
+  position: relative;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+
+/* ==========================================================================
+   Responsive Video Embed
+   ========================================================================== */
+
+/* Relive Ratio */
+.embed-container-relive {
+  /* Default */
+  padding-bottom: 58%;
+
+  @include breakpoint($small) {
+    /* >= 600 */
+    padding-bottom: 62.25%;
+  }
+
+  @include breakpoint($medium) {
+    /* >= 768 */
+    padding-bottom: 60%;
+  }
+}
+
+.embed-container-strava {
+  /* Smallets */
+  padding-bottom: 125%;
+
+  @include breakpoint($small) {
+    /* >= 600 */
+    padding-bottom: 66.66%;
+  }
+
+  @include breakpoint($medium) {
+    /* >= 768 */
+    padding-bottom: 50%;
+  }
+
+  @include breakpoint($large) {
+    /* >= 1024 */
+    padding-bottom: 70%;
+  }
+}
+
+/* 9x16 Aspect Ratio */
+.embed-container-9x16 {
+  padding-bottom: 67.5%;
+
+  @include breakpoint($small) {
+    padding-bottom: 33%;
+  }
+}
+
+/* 16x9 Aspect Ratio */
+.embed-container-16x9 {
+  padding-bottom: 120%;
+
+  @include breakpoint($small) {
+    padding-bottom: 66.66%;
+  }
+}
+
+/* 4x3 Aspect Ratio */
+.embed-container-4x3 {
+  padding-bottom: 75%;
+
+  @include breakpoint($small) {
+    padding-bottom: 75%;
+  }
+}
+
+.embed-container {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  border: 0;
+  background-color: transparent;
+  margin-bottom: 1em;
+  max-width: 100%;
+  max-height: 100%;
+
+  iframe,
+  object,
+  embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 0;
+    background-color: transparent;
+  }
+}
+
+
+/* ==========================================================================
+   Images
+   ========================================================================== */
+
+.align-left {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /* padding-right: 10px; */
+
+  @include breakpoint($small) {
+    /* When you are on a small screen, use this */
+    float: left;
+    margin-right: 1em;
+  }
+}
+
+.align-right {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /* padding-left: 10px; */
+
+  @include breakpoint($small) {
+    float: right;
+    margin-left: 1em;
+  }
+}
+
+.align-center {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* NEED a better way to do this
+.fa-json {
+  background: url(/assets/images/json-feed.svg) no-repeat top left;
+  background-size: contain;
+  color: #fff !important;
+  fill: #fff !important;
+  width: 0.8em;
+  height: 0.8em;
+  margin-top: -3px;
+}
+*/
+
+/* Strava color: https://www.schemecolor.com/strava.php */
+.orange {
+  color: #fc4c02 !important;
+}
+
+.white {
+  color: #fff !important;
+}
+
+.search__toggle {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

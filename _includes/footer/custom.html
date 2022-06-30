@@ -1,0 +1,32 @@
+<!-- start custom footer snippets -->
+
+		<!-- debugging items -->
+		<!-- Page.ID = {{ page.id }} -->
+		<!-- Page.URL = {{ page.url }} -->
+        <!-- Page.PATH = {{ page.path }} -->
+		<!-- Page.NAME = {{ page.name }} -->
+
+        {% if page.name == 'index1.html' and insta_image != true %}
+        <!-- If viewing the main page, include script for instagram -->
+        <!-- instafeed https://github.com/stevenschobert/instafeed.js -->
+        <!-- accessToken http://dmolsen.com/2013/04/05/generating-access-tokens-for-instagram/ -->
+        <!-- jekyll http://chrissciolla.com/tech/jekyll-instafeedjs-tutorial.html -->
+        <script type="text/javascript" src="{{ '/assets/js/instafeed.js' | relative_url }}"></script>
+
+        {% assign insta_link = '{{link}}' %}
+        {% assign insta_image = '{{image}}' %}
+        {% assign insta_caption = '{{caption}}' %}
+        <script type="text/javascript">
+          var feed = new Instafeed({
+            target: 'IG_topFigure',
+            limit: '6',
+            debug: true,
+            accessToken: 'IGQVJWWGdieVlaZA2F5LXpMUGluUHM3OW5JN25SZAzZAOTVVfck5TbTV3NDFKMFlrdG0xa1BfTWNLR3BZASGZAaSjY0WnlxNUV3R1RfLU9NemtVTUl0YUJFNm5aNVdZAZAlcxSkhRdV9jSXVmTElCUkE1U2ZAvRwZDZD',
+            template: '<a href="{{ insta_link }}" class="image-popup"><img src="{{ insta_image }}" alt="{{ insta_caption }}" width="150" height="150" \/><\/a>'
+          });
+
+          feed.run();
+        </script>
+        {% endif %}
+
+		<!-- end custom footer snippets -->

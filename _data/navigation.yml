@@ -1,0 +1,29 @@
+# Menu navigation links
+main:
+
+#  - title: Bio
+#    url: /bio/
+
+  - title: "Referral Links"
+    url: reflinks/
+  - title: "Subscribe"
+    url: Contact/
+
+#  - title: Search
+#    url: /search/
+
+docs:
+  - title:
+    children:
+      - title:
+        url:
+  - title: Archives
+    children:
+      - title: "Posts Archives"
+        url: /posts/
+      - title: "Pages Archives"
+        url: /pages/
+      - title: "Tag Archives"
+        url: /tags/
+      - title: "Category Archives"
+        url: /categories/
