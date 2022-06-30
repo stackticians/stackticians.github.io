@@ -12,52 +12,39 @@
       <section class="fb-comments" data-href="{{ page.url | absolute_url }}" data-mobile="true" data-num-posts="{{ site.comments.facebook.num_posts | default: 5 }}" data-width="100%" data-colorscheme="{{ site.comments.facebook.colorscheme | default: 'light' }}"></section>
     {% when "staticman_v2" %}
       <section id="static-comments">
-        {% if site.repository and site.staticman.branch %}
-          {% if site.data.comments[page.slug] %}
-            <!-- Start static comments -->
-            <div id="comments" class="js-comments">
-
+        {% if site.repository and site.comments.staticman.branch %}
+          <!-- Start static comments -->
+          <div class="js-comments">
+            {% if site.data.comments[page.slug] %}
               <h4 class="page__comments-title">{{ site.data.ui-text[site.locale].comments_title | default: "Comments" }}</h4>
-              {% assign comments = site.data.comments[page.slug] | where_exp: 'item', 'item.replying_to == empty' | sort: 'date' %}
+              {% assign comments = site.data.comments[page.slug] %}
 
-              <!--
-                {{ comments | inspect }}
-              -->
+              <!-- In order to sort by date we must have an array of objects, not an array of arrays, so
+                    create a new array of plain comment objects and then sort by the comment date. -->
+              {% assign commentObjects = '' | split: '' %}
+              {% for comment in comments %}
+                {% assign commentObject = comment[1] %}
+                {% assign commentObjects = commentObjects | push: commentObject %}
+              {% endfor %}
+              {% assign comments = commentObjects | sort: "date" %}
 
               {% for comment in comments %}
-
-                {% assign index       = forloop.index %}
-                {% assign r           = comment.replying_to %}
-                {% assign replying_to = r | to_integer %}
-
-                {% assign avatar      = comment.avatar %}
-                {% assign email       = comment.email %}
-                {% assign name        = comment.name %}
-                {% assign url         = comment.url %}
-                {% assign date        = comment.date %}
-                {% assign slug        = comment.slug %}
-                {% assign origin      = comment.origin %}
-                {% assign message     = comment.message %}
-                {% include comment.html index=index replying_to=replying_to avatar=avatar email=email name=name url=url date=date slug=slug origin=origin message=message %}
-
+                {% assign email = comment.email %}
+                {% assign name = comment.name %}
+                {% assign url = comment.url %}
+                {% assign date = comment.date %}
+                {% assign message = comment.message %}
+                {% include comment.html index=forloop.index email=email name=name url=url date=date message=message %}
               {% endfor %}
-            </div>
-            <!--
-              {{ site.data.comments[page.slug] }}
-            -->
-            <!-- End static comments -->
-          {% endif %}
+            {% endif %}
+          </div>
+          <!-- End static comments -->
 
-          {% unless page.comments_locked == true or site.comments.comments_locked %}
-
-            <!-- Start new comment form -->
-            <div id="respond" class="page__comments-form">
-            <h4 class="page__comments-title">
-              Leave a Comment <small><a rel="nofollow" id="cancel-comment-reply-link" class="btn btn--danger btn--small" href="{{ page.url | absolute_url }}#respond" style="display:none;">Cancel reply</a></small>
-            </h4>
-
-            <p class="small">{{ site.data.ui-text[site.locale].comment_form_info | default: "Your email is used for Gravatar image and reply notifications only.  Address will not be published." }} <span class="required">*</span></p>
-            <form id="new_comment" class="page__comments-form js-form form" method="post" action="{{ site.staticman.endpoint | default: 'https://api.staticman.net/v2/entry/' }}{{ site.repository }}/{{ site.staticman.branch }}/comments">
+          <!-- Start new comment form -->
+          <div class="page__comments-form">
+            <h4 class="page__comments-title">{{ site.data.ui-text[site.locale].comments_label | default: "Leave a Comment" }}</h4>
+            <p class="small">{{ site.data.ui-text[site.locale].comment_form_info | default: "Your email address will not be published. Required fields are marked" }} <span class="required">*</span></p>
+            <form id="new_comment" class="page__comments-form js-form form" method="post" action="{{ site.comments.staticman.endpoint }}{{ site.repository }}/{{ site.comments.staticman.branch }}/comments">
               <div class="form__spinner">
                 <i class="fas fa-spinner fa-spin fa-3x fa-fw"></i>
                 <span class="sr-only">{{ site.data.ui-text[site.locale].loading_label | default: "Loading..." }}</span>
@@ -76,14 +63,12 @@
                 <label for="comment-form-email">{{ site.data.ui-text[site.locale].comment_form_email_label | default: "Email address" }} <small class="required">*</small></label>
                 <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
               </div>
-              <!-- <div class="form-group">
+              <div class="form-group">
                 <label for="comment-form-url">{{ site.data.ui-text[site.locale].comment_form_website_label | default: "Website (optional)" }}</label>
                 <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
-              </div> -->
+              </div>
               <div class="form-group hidden" style="display: none;">
-                <input type="hidden" id="comment-post-id" name="options[slug]" value="{{ page.slug }}" />
-                <input type="hidden" name="options[origin]" value="{{ page.url | absolute_url }}" />
-                <input type="hidden" id="comment-parent" name="fields[replying_to]" value="" />
+                <input type="hidden" name="options[slug]" value="{{ page.slug }}">
                 <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
                 <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
                 {% if site.reCaptcha.siteKey %}<input type="hidden" name="options[reCaptcha][siteKey]" value="{{ site.reCaptcha.siteKey }}">{% endif %}
@@ -100,15 +85,12 @@
                 </div>
               {% endif %}
               <div class="form-group">
-                <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--success btn--large">{{ site.data.ui-text[site.locale].comment_btn_submit | default: "Submit Comment" }}</button>
+                <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--primary btn--large">{{ site.data.ui-text[site.locale].comment_btn_submit | default: "Submit Comment" }}</button>
               </div>
             </form>
           </div>
           <!-- End new comment form -->
           {% if site.reCaptcha.siteKey %}<script async src="https://www.google.com/recaptcha/api.js"></script>{% endif %}
-          {% else %}
-            <p><em>Comments are closed. If you have a question concerning the content of this page, please feel free to contact me.</em></p>
-          {% endunless %}
         {% endif %}
       </section>
     {% when "staticman" %}
@@ -118,14 +100,23 @@
           <div class="js-comments">
             {% if site.data.comments[page.slug] %}
               <h4 class="page__comments-title">{{ site.data.ui-text[site.locale].comments_title | default: "Comments" }}</h4>
-              {% assign comments = site.data.comments[page.slug] | sort %}
+              {% assign comments = site.data.comments[page.slug] %}
+
+              <!-- In order to sort by date we must have an array of objects, not an array of arrays, so
+                    create a new array of plain comment objects and then sort by the comment date. -->
+              {% assign commentObjects = '' | split: '' %}
+              {% for comment in comments %}
+                {% assign commentObject = comment[1] %}
+                {% assign commentObjects = commentObjects | push: commentObject %}
+              {% endfor %}
+              {% assign comments = commentObjects | sort: "date" %}
 
               {% for comment in comments %}
-                {% assign email = comment[1].email %}
-                {% assign name = comment[1].name %}
-                {% assign url = comment[1].url %}
-                {% assign date = comment[1].date %}
-                {% assign message = comment[1].message %}
+                {% assign email = comment.email %}
+                {% assign name = comment.name %}
+                {% assign url = comment.url %}
+                {% assign date = comment.date %}
+                {% assign message = comment.message %}
                 {% include comment.html index=forloop.index email=email name=name url=url date=date message=message %}
               {% endfor %}
             {% endif %}
@@ -180,7 +171,10 @@
     {% when "utterances" %}
       <h4 class="page__comments-title">{{ comments_label }}</h4>
       <section id="utterances-comments"></section>
+    {% when "giscus" %}
+      <h4 class="page__comments-title">{{ comments_label }}</h4>
+      <section id="giscus-comments"></section>
     {% when "custom" %}
-      <section id="custom-comments"></section>
+      {% include /comments-providers/custom.html %}
   {% endcase %}
 </div>

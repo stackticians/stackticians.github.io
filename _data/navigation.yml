@@ -1,29 +1,12 @@
-# Menu navigation links
+# main links
 main:
-
-#  - title: Bio
-#    url: /bio/
-
-  - title: "Referral Links"
-    url: reflinks/
-  - title: "Subscribe"
-    url: Contact/
-
-#  - title: Search
-#    url: /search/
-
-docs:
-  - title:
-    children:
-      - title:
-        url:
-  - title: Archives
-    children:
-      - title: "Posts Archives"
-        url: /posts/
-      - title: "Pages Archives"
-        url: /pages/
-      - title: "Tag Archives"
-        url: /tags/
-      - title: "Category Archives"
-        url: /categories/
+  - title: "Quick-Start Guide"
+    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+  # - title: "About"
+  #   url: https://mmistakes.github.io/minimal-mistakes/about/
+  # - title: "Sample Posts"
+  #   url: /year-archive/
+  # - title: "Sample Collections"
+  #   url: /collection-archive/
+  # - title: "Sitemap"
+  #   url: /sitemap/
