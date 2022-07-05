@@ -1,3 +1,3 @@
-https://usdsat.com/
+[USDSat Converter](https://usdsat.com/)
 
-https://www.satsrules.com/
+[SatsRules](https://www.satsrules.com/)
