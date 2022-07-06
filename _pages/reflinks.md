@@ -26,7 +26,7 @@ header:
 
 ---
 
-## Bet your BTC or win on a Free roll
+## BTC, Bet, Earn Interest or win up to 200 sats daily!
 - [Freebitco.in](https://freebitco.in/?r=41733425) 
 
 ## Cape Verde Options
